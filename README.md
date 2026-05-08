@@ -79,6 +79,8 @@ A fully functional on-premises Active Directory environment built from scratch u
 3. Set a strong local administrator password
 4. Complete installation and log in
 
+![Virtualbox_DCO1 and PCO1](images/Virtualbox.png)
+
 #### Step 3 — Configure a Static IP
 
 Navigate to: `Control Panel → Network and Internet → Network Connections`
@@ -92,6 +94,7 @@ Right-click the Ethernet adapter → **Properties** → **IPv4**
 | Default Gateway | `192.168.10.1` |
 | Preferred DNS | `192.168.10.10` *(DC points to itself)* |
 
+![DC01 Static IP Configuration](images/DC01_StaticIP.png)
 #### Step 4 — Rename the Server
 
 `Server Manager → Local Server → Computer Name → Change`
@@ -123,7 +126,7 @@ After the reboot, confirm the following:
 
 - **Active Directory Users and Computers (ADUC)** — the `lab.local` domain is visible
 - **DNS Manager** — forward lookup zone `lab.local` is present, along with `_msdcs` zone entries
-
+![DC01 Verify AD DS and DNS](images/DC01_DNS.png)
 ---
 
 ### Part B — Client VM Setup and Domain Join
@@ -152,8 +155,8 @@ Set a static IP (or use DHCP once configured):
 | Preferred DNS | `192.168.10.10` *(must point to DC)* |
 
 > **Critical:** The DNS field must point to the Domain Controller. This is the most common point of failure when joining a domain.
-
-#### Step 10 — Verify Connectivity
+![PC01 Static IP Configuration ](images/PC01_ipV4.png)
+> #### Step 10 — Verify Connectivity
 
 From PC01 Command Prompt:
 
@@ -171,7 +174,7 @@ Both should succeed before proceeding.
 - Domain: `lab.local`
 - Credentials: `LAB\Administrator`
 - Reboot, then log in as a domain user
-
+![PC01 Joining domain](images/PC01.png)
 ---
 
 ### Part C — DHCP Configuration
@@ -193,7 +196,7 @@ Open the **DHCP console** → `IPv4 → New Scope`
 | Router (Option 003) | `192.168.10.1` |
 | DNS Server (Option 006) | `192.168.10.10` |
 | Domain Name (Option 015) | `lab.local` |
-
+![DC01 DHCP Scope ](images/DC01-DHCP.png)
 Activate the scope.
 
 #### Step 14 — Switch Clients to DHCP
@@ -222,7 +225,7 @@ Create the following OUs:
 
 **Users** (in the Users OU):
 - `jdoe` — standard domain user
-
+![PC01 User ](images/DC01_User.png)
 **Groups:**
 - `GG-IT-Admins`
 - `GG-Staff`
